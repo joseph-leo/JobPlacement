@@ -9,7 +9,7 @@ Featured below are some stories I worked on over the live porject with code snip
 - Clock in indicator
 
 ### Deny Time Off
-Initially the method was not working correctly, I was tasked with refactoring the method so that an admin could deny a time off request from a user. 
+Initially the method was not working correctly, I was tasked with refactoring the method so that an admin could deny a time off request from a user. I accomplished this by using the User's id to check if that id had been stored in the UserId property of the TimeOffEvent.
 ```C#
 public ActionResult Deny(Guid id)
         {
@@ -37,5 +37,29 @@ public ActionResult Deny(Guid id)
                 return RedirectToAction("InboxAdmin");
             }
             else return View("AdminError");
+        }
+```
+### Clock in Indicator
+For this story I had to create a method that would check if a user was clocked in or not and display that to the user.
+```C#
+public bool IsUserClockedIn(Guid studentId)
+        {
+            bool clockedIn = db.WorkTimeEvents.Any(x => x.End == null
+                                                        && x.UserId == studentId);
+            return clockedIn;
+        }
+
+        public PartialViewResult ClockStatus()
+        {
+            bool isClockedIn;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                Guid id = Guid.Parse(User.Identity.GetUserId());
+                isClockedIn = IsUserClockedIn(id);  
+            }
+            else { isClockedIn = false; }
+
+            return PartialView("_ClockStatus", isClockedIn);
         }
 ```
