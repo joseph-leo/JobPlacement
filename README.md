@@ -68,9 +68,9 @@ public bool IsUserClockedIn(Guid studentId)
 I was given the task to changed the background color and text color of the menu navabr. This seemed very simple at first but ran into issues overriding bootstrap classes. This experience helped me understand how to leverage bootstrap in a more intuitive way and to customize bootstrap styling.
 ## Other Skills Learned
 - Collaborated with other developers to find bugs in order to improve user experience.
-        - Redirecting the user to the appropriate page.
-        - Finding unhandled exceptions.
-        - Fixing undesired outputs.
+       - Redirecting the user to the appropriate page.
+       - Finding unhandled exceptions.
+       - Fixing undesired outputs.
 - Improved workflow efficiency by learning DevOps processes.
 - Continuously learning new ideas and methologies from other developers to improve personally as a developer.
 
