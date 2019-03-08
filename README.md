@@ -64,7 +64,7 @@ public bool IsUserClockedIn(Guid studentId)
         }
 ```
 ## Front End Stories
--Navbar styling
+- Navbar styling
 I was given the task to changed the background color and text color of the menu navabr. This seemed very simple at first but ran into issues overriding bootstrap classes. This experience helped me understand how to leverage bootstrap in a more intuitive way and to customize bootstrap styling.
 ## Other Skills Learned
 - Collaborated with other developers to find bugs in order to improve user experience.
