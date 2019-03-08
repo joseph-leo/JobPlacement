@@ -9,7 +9,7 @@ Featured below are some stories I worked on over the live porject with code snip
 - [Clock in Indicator](#Clock-in-Indicator)
 
 ### Deny Time Off
-Initially the method was not working correctly, I was tasked with refactoring the method so that an admin could deny a time off request from a user. I accomplished this by using the User's id to check if that id had been stored in the UserId property of the TimeOffEvent.
+Initially the method was not working correctly, I was tasked with refactoring the method so that an admin could deny a time off request from a user. I accomplished this by chcecking if the User's id matches the UserId property of the TimeOffEvent.
 ```C#
 public ActionResult Deny(Guid id)
         {
