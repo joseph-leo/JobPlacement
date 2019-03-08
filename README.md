@@ -1,10 +1,41 @@
 # Live Project
-### Project Introduction
+## Project Introduction
 From February 25th - March 8th, 2019 I worked in a team setting on a full scale ASP.NET MVC web application at the Tech Academy. Working on an existing codebase was a great way to get comfortable debugging unfamiliar code, refactoring working code, as well as implementing new features. This experience has shown me a lot about the agile methodology and has given me an appreciation for working on code collaboratively in a team setting. During this project we were given the opportunity to work on both front end and back end stories so I took advantage of this and spent time on both types of stories, including some that were a mixture of the two. This was a very valuable experience for me and because of this I am confident working with both front and back end code and using them in conjunction to create web applications. Along with practical coding knowledge, I also learned many useful skills that will help me in my career as a software developer.
 
 Featured below are some stories I worked on over the live porject with code snippets to demonstrate what was accomplished.
 
-### Back End Stories
-'''
-Hi
-'''
+## Back End/Mixed Stories
+- Deny time off method
+- Clock in indicator
+
+### Deny Time Off
+Initially the method was not working correctly, I was tasked with refactoring the method so that an admin could deny a time off request from a user. 
+```C#
+public ActionResult Deny(Guid id)
+        {
+            if (User.IsInRole("Admin"))
+            {
+                TimeOffEvent timeOffEvent = db.TimeOffEvents.Find(id);
+                timeOffEvent.ActiveSchedule = false;
+
+                ApplicationUser currentUser = System.Web.HttpContext.Current.GetOwinContext()
+                    .GetUserManager<ApplicationUserManager>()
+                    .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+                List<TimeOffEvent> timeOffEvents = db.TimeOffEvents.Where(x => x.UserId == id).ToList();
+                Message message = new Message()
+                {
+                    MessageId = Guid.NewGuid(),
+                    DateSent = DateTime.Now,
+                    Sender = db.Users.Find(currentUser.Id),
+                    RecipientList = new List<Guid>(timeOffEvents.Select(x => x.UserId))
+                };
+                db.Messages.Add(message);
+                db.TimeOffEvents.Remove(timeOffEvent);
+                db.SaveChanges();
+
+                return RedirectToAction("InboxAdmin");
+            }
+            else return View("AdminError");
+        }
+```
